@@ -1,0 +1,209 @@
+/* --- Globals & Variables --- */
+:root {
+    --primary-color: #007BFF;
+    --primary-hover-color: #0056b3;
+    --background-color: #f4f7f6;
+    --text-color: #333;
+    --header-bg: #ffffff;
+    --card-bg: #ffffff;
+    --footer-bg: #2c3e50;
+    --footer-text-color: #ecf0f1;
+    --font-family: 'Montserrat', sans-serif;
+    --border-radius: 8px;
+    --shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* --- Basic Reset & Setup --- */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- Navigation Bar --- */
+.header {
+    background-color: var(--header-bg);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+}
+
+.nav-logo {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin-left: 25px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+/* --- Hero Section --- */
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzOTAwMjV8MHwxfHNlYXJjaHw0fHxjb2RlfGVufDB8fHx8MTcyNDA0OTcwNXww&ixlib=rb-4.0.3&q=80&w=1080') no-repeat center center/cover;
+    color: white;
+    text-align: center;
+    padding: 120px 0;
+}
+
+.hero-content h1 {
+    font-size: 3.5em;
+    margin-bottom: 0.2em;
+}
+
+.hero-content .subtitle {
+    font-size: 1.5em;
+    font-weight: 300;
+    margin-bottom: 1.5em;
+}
+
+/* --- Button Styles --- */
+.btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    font-weight: 700;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    background-color: var(--primary-hover-color);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    display: inline-block;
+    background-color: transparent;
+    color: var(--primary-color);
+    padding: 10px 20px;
+    text-decoration: none;
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+/* --- Content Sections --- */
+.about-section, .projects-section, .contact-section {
+    padding: 80px 0;
+}
+
+.about-section h2, .projects-section h2, .contact-section h2 {
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 50px;
+}
+
+/* --- About Me Section --- */
+.about-content {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: var(--shadow);
+}
+
+/* --- Projects Section --- */
+.projects-section {
+    background-color: #fff;
+}
+
+.project-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.project-card h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+/* --- Contact Section --- */
+.contact-section {
+    text-align: center;
+}
+
+.social-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    margin: 0 15px;
+    font-size: 1.2em;
+    font-weight: 700;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--primary-color);
+}
+
+/* --- Footer --- */
+.footer {
+    background-color: var(--footer-bg);
+    color: var(--footer-text-color);
+    text-align: center;
+    padding: 20px 0;
+}
