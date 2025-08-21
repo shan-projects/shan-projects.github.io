@@ -1,446 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Player</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shan's Personal Portfolio</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
 
-      body {
-        background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-      }
-
-      .container {
-        width: 100%;
-        max-width: 1000px;
-        background-color: rgba(0, 0, 0, 0.8);
-        border-radius: 20px;
-        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-        overflow: hidden;
-      }
-
-      header {
-        background: linear-gradient(90deg, #ff416c, #ff4b2b);
-        color: white;
-        padding: 25px 30px;
-        text-align: center;
-      }
-
-      h1 {
-        font-size: 2.5rem;
-        margin-bottom: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 15px;
-      }
-
-      h1 i {
-        color: #ffd700;
-      }
-
-      .input-section {
-        padding: 30px;
-        background-color: rgba(30, 30, 40, 0.9);
-        border-bottom: 2px solid #ff416c;
-      }
-
-      .input-group {
-        display: flex;
-        gap: 15px;
-        margin-bottom: 20px;
-      }
-
-      .url-input {
-        flex: 1;
-        padding: 15px 20px;
-        border: none;
-        border-radius: 50px;
-        font-size: 1.1rem;
-        background-color: rgba(255, 255, 255, 0.1);
-        color: white;
-        border: 2px solid #ff416c;
-      }
-
-      .url-input:focus {
-        outline: none;
-        border-color: #ffd700;
-        background-color: rgba(255, 255, 255, 0.15);
-      }
-
-      .play-btn {
-        background: linear-gradient(90deg, #ff416c, #ff4b2b);
-        color: white;
-        border: none;
-        padding: 15px 35px;
-        border-radius: 50px;
-        font-size: 1.1rem;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .play-btn:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 15px rgba(255, 65, 108, 0.7);
-      }
-
-      .video-container {
-        position: relative;
-        padding: 20px;
-        background-color: #000;
-      }
-
-      #videoPlayer {
-        width: 100%;
-        display: block;
-        max-height: 500px;
-        background-color: #000;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-      }
-
-      .player-controls {
-        background-color: rgba(0, 0, 0, 0.7);
-        padding: 15px 20px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-        align-items: center;
-        border-radius: 0 0 10px 10px;
-        margin-top: -4px;
-      }
-
-      .control-btn {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 1.2rem;
-        cursor: pointer;
-        padding: 8px;
-        border-radius: 50%;
-        transition: all 0.2s ease;
-      }
-
-      .control-btn:hover {
-        background-color: rgba(255, 255, 255, 0.2);
-      }
-
-      .progress-container {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .progress-bar {
-        flex: 1;
-        height: 8px;
-        background-color: rgba(255, 255, 255, 0.2);
-        border-radius: 4px;
-        position: relative;
-        cursor: pointer;
-      }
-
-      .progress {
-        height: 100%;
-        background: linear-gradient(90deg, #ff416c, #ffd700);
-        border-radius: 4px;
-        width: 0%;
-      }
-
-      .time-display {
-        color: white;
-        font-size: 0.9rem;
-        min-width: 100px;
-        text-align: center;
-      }
-
-      .resolution-controls {
-        padding: 25px;
-        background-color: rgba(30, 30, 40, 0.9);
-        border-top: 2px solid #ff416c;
-      }
-
-      .resolution-title {
-        color: white;
-        font-size: 1.2rem;
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .resolution-options {
-        display: flex;
-        gap: 15px;
-        flex-wrap: wrap;
-      }
-
-      .resolution-btn {
-        background-color: rgba(255, 255, 255, 0.1);
-        color: white;
-        border: 2px solid #ff416c;
-        padding: 12px 25px;
-        border-radius: 50px;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .resolution-btn:hover, .resolution-btn.active {
-        background: linear-gradient(90deg, #ff416c, #ff4b2b);
-        transform: translateY(-3px);
-      }
-
-      .feature-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 20px;
-        padding: 30px;
-        background-color: rgba(0, 0, 0, 0.6);
-      }
-
-      .feature-card {
-        background: linear-gradient(135deg, rgba(255, 65, 108, 0.2), rgba(255, 215, 0, 0.2));
-        border-radius: 15px;
-        padding: 25px;
-        color: white;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-      }
-
-      .feature-card h3 {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 15px;
-        color: #ffd700;
-      }
-
-      .feature-card ul {
-        padding-left: 20px;
-      }
-
-      .feature-card li {
-        margin-bottom: 8px;
-        line-height: 1.5;
-      }
-
-      footer {
-        text-align: center;
-        padding: 20px;
-        color: rgba(255, 255, 255, 0.7);
-        font-size: 0.9rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-      }
-
-      @media (max-width: 768px) {
-        .input-group {
-          flex-direction: column;
-        }
-
-        .control-btn {
-          font-size: 1rem;
-        }
-
-        .time-display {
-          min-width: 80px;
-        }
-
-        h1 {
-          font-size: 2rem;
-        }
-      }
-    </style>
-  </head>
-  <body>
+<header class="header">
   <div class="container">
-    <header>
-      <h1><i class="fas fa-play-circle"></i> Shan's Video Player </h1>
-      <p>Enter URL，enjoy your video</p>
-    </header>
+    <nav class="navbar">
+      <a href="#" class="nav-logo">Shan</a>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
+        <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-    <div class="input-section">
-      <div class="input-group">
-        <input type="text" id="videoUrl" class="url-input" placeholder="Enter URL (Such as: https://example.com/video.mp4)" value="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4">
-        <button id="playButton" class="play-btn">
-          <i class="fas fa-play"></i> play
-        </button>
-      </div>
-<!--      <p style="color: #ffd700; text-align: center;">Hint：您可以使用上方提供的示例URL或输入您自己的视频URL</p>-->
+<main>
+  <section class="hero">
+    <div class="container hero-content">
+      <h1>Hello, I'm Shan Lu</h1>
+      <p class="subtitle">A passionate Developer / Student</p>
+      <a href="#projects" class="btn">View My Work</a>
     </div>
-    <div class="video-container">
-      <video id="videoPlayer">
-        Your browser does not support HTML5 video playback.
-      </video>
-      <div class="player-controls">
-        <button id="playPauseBtn" class="control-btn">
-          <i class="fas fa-play"></i>
-        </button>
-        <button id="muteBtn" class="control-btn">
-          <i class="fas fa-volume-up"></i>
-        </button>
-        <div class="progress-container">
-          <div class="progress-bar" id="progressBar">
-            <div class="progress" id="progress"></div>
-          </div>
-          <div class="time-display" id="timeDisplay">00:00 / 00:00</div>
-        </div>
-        <button id="fullscreenBtn" class="control-btn">
-          <i class="fas fa-expand"></i>
-        </button>
+  </section>
+
+  <section id="about" class="about-section">
+    <div class="container">
+      <h2>About Me</h2>
+      <div class="about-content">
+        <img src="../images/shan-cat.jpg" alt="Personal Avatar" class="avatar">
+        <p>
+          Hello! I am a passionate developer with a focus on Language Model/Data Analysis/Web Development/Application Development. I love learning new things and applying them to practical projects to create beautiful, useful, and efficient websites and applications.
+        </p>
       </div>
     </div>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // 获取DOM元素
-        const videoPlayer = document.getElementById('videoPlayer');
-        const videoUrlInput = document.getElementById('videoUrl');
-        const playButton = document.getElementById('playButton');
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        const progressBar = document.getElementById('progressBar');
-        const progress = document.getElementById('progress');
-        const timeDisplay = document.getElementById('timeDisplay');
-        const fullscreenBtn = document.getElementById('fullscreenBtn');
+  </section>
 
-        // 设置视频源
-        function setVideoSource() {
-          const videoUrl = videoUrlInput.value.trim();
-          if (videoUrl) {
-            videoPlayer.src = videoUrl;
-            videoPlayer.load();
+  <section id="projects" class="projects-section">
+    <div class="container">
+      <h2>My Projects</h2>
+      <div class="project-card">
+        <h3>Project One: Class Website</h3>
+        <p>A collaborative website created by the class. In these courses we learned about Web Development with HTML & CSS and Software Development & Version Control in a team setting using GitHub and Slack.</p>
+        <a href="https://github.com/su25-it115-it161-class/su25-it115-it161-class.github.io" target="_blank" class="btn-secondary">
+          View on GitHub &rarr;
+        </a>
+      </div>
+      <div class="project-card">
+        <h3>Project Two: Google translator Library</h3>
+        <p>A free and unlimited python API for google translate.
+          It's very easy to use and solve the problem that the old api which use tk value cannot be used.
+          This interface is for academic use only, please do not use it for commercial use.</p>
+        <a href="https://github.com/lushan88a/google_trans_new" target="_blank" class="btn-secondary">
+          View on GitHub &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
 
-            // 视频加载后自动播放
-            videoPlayer.addEventListener('canplay', () => {
-              videoPlayer.play();
-              playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-              updateTimeDisplay();
-            });
-          } else {
-            alert('Please enter a valid video URL');
-          }
-        }
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <h2>Get In Touch</h2>
+      <p>You can find me through the following channels. I look forward to connecting with you!</p>
+      <div class="social-links">
+        <a href="https://github.com/lushan88a" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/shan-lu-8a9b28377/" target="_blank">LinkedIn</a>
+        <a href="lushan88d@gmail.com">Email</a>
+      </div>
+    </div>
+  </section>
+</main>
 
-        // 播放/暂停功能
-        function togglePlayPause() {
-          if (videoPlayer.paused || videoPlayer.ended) {
-            videoPlayer.play();
-            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
-          } else {
-            videoPlayer.pause();
-            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-          }
-        }
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2025 Shan Lu. All Rights Reserved.</p>
+  </div>
+</footer>
 
-        // 更新进度条
-        function updateProgress() {
-          const percent = (videoPlayer.currentTime / videoPlayer.duration) * 100;
-          progress.style.width = `${percent}%`;
-          updateTimeDisplay();
-        }
-
-        // 更新时间显示
-        function updateTimeDisplay() {
-          const currentTime = formatTime(videoPlayer.currentTime);
-          const duration = formatTime(videoPlayer.duration);
-          timeDisplay.textContent = `${currentTime} / ${duration}`;
-        }
-
-        // 格式化时间 (秒 -> MM:SS)
-        function formatTime(seconds) {
-          const minutes = Math.floor(seconds / 60);
-          seconds = Math.floor(seconds % 60);
-          return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-
-        // 设置进度
-        function setProgress(e) {
-          const width = this.clientWidth;
-          const clickX = e.offsetX;
-          const duration = videoPlayer.duration;
-          videoPlayer.currentTime = (clickX / width) * duration;
-        }
-
-        // 全屏功能
-        function toggleFullscreen() {
-          if (!document.fullscreenElement) {
-            if (videoPlayer.requestFullscreen) {
-              videoPlayer.requestFullscreen();
-            } else if (videoPlayer.mozRequestFullScreen) {
-              videoPlayer.mozRequestFullScreen();
-            } else if (videoPlayer.webkitRequestFullscreen) {
-              videoPlayer.webkitRequestFullscreen();
-            } else if (videoPlayer.msRequestFullscreen) {
-              videoPlayer.msRequestFullscreen();
-            }
-            fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
-          } else {
-            if (document.exitFullscreen) {
-              document.exitFullscreen();
-            } else if (document.mozCancelFullScreen) {
-              document.mozCancelFullScreen();
-            } else if (document.webkitExitFullscreen) {
-              document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) {
-              document.msExitFullscreen();
-            }
-            fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
-          }
-        }
-
-        // 键盘快捷键
-        document.addEventListener('keydown', (e) => {
-          if (e.target === videoUrlInput) return;
-
-          switch (e.key) {
-            case ' ':
-              togglePlayPause();
-              e.preventDefault();
-              break;
-            case 'ArrowRight':
-              videoPlayer.currentTime += 5;
-              break;
-            case 'ArrowLeft':
-              videoPlayer.currentTime -= 5;
-              break;
-            case 'f':
-            case 'F':
-              toggleFullscreen();
-              break;
-          }
-        });
-
-        // 事件监听
-        playButton.addEventListener('click', setVideoSource);
-        playPauseBtn.addEventListener('click', togglePlayPause);
-        fullscreenBtn.addEventListener('click', toggleFullscreen);
-        progressBar.addEventListener('click', setProgress);
-
-        videoPlayer.addEventListener('timeupdate', updateProgress);
-        videoPlayer.addEventListener('click', togglePlayPause);
-        videoPlayer.addEventListener('ended', () => {
-          playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
-        });
-
-        // 初始化视频源
-        setVideoSource();
-      });
-    </script>
-
-  </body>
+</body>
 </html>
